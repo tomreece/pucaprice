@@ -19,7 +19,7 @@ def scrape():
         normal_price = prices[0].text
         foil_price = prices[1].text
 
-        if normal_price = "N/A":
+        if normal_price == "N/A":
             normal_price = None
 
         if foil_price == "N/A":
