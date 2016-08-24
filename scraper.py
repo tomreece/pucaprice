@@ -1,4 +1,5 @@
 from __future__ import print_function
+import datetime
 import requests
 from bs4 import BeautifulSoup
 from apscheduler.schedulers.blocking import BlockingScheduler
@@ -7,7 +8,7 @@ RANGE = 32047
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job("interval", hours=12)
+@sched.scheduled_job("interval", hours=12, start_date=datetime.datetime.utcnow)
 def scrape():
     for pucatrade_id in range(1, RANGE + 1):
         r = requests.get("https://pucatrade.com/cards/show/{}".format(pucatrade_id))
