@@ -15,8 +15,8 @@ def scrape():
 
         card_name = soup.find("h1", class_="title").text
         prices = soup.find_all("div", class_="price small")
-        normal_price = prices[0].text
-        foil_price = prices[1].text
+        normal_price = prices[0].text.replace(",", "")
+        foil_price = prices[1].text.replace(",", "")
 
         if normal_price == "N/A":
             normal_price = None
