@@ -18,10 +18,14 @@ def scrape():
         prices = soup.find_all("div", class_="price small")
         normal_price = prices[0].text
         foil_price = prices[1].text
+        if foil_price == "N/A":
+            foil_price = None
 
         card = {
             "name": card_name,
-            "pucatrade_id": pucatrade_id
+            "pucatrade_id": pucatrade_id,
+            "normal_price": normal_price,
+            "foil_price": foil_price
         }
 
         r2 = requests.post("http://pucaprice.herokuapp.com/scraper/add", json=card)

@@ -41,13 +41,19 @@ def hello():
 @app.route("/scraper/add", methods=["POST"])
 def scraper_add():
     data = request.json
-    existing_card = Card.query.filter_by(pucatrade_id=data["pucatrade_id"]).first()
-    if not existing_card:
-        new_card = Card()
-        new_card.pucatrade_id = data["pucatrade_id"]
-        new_card.name = data["name"]
-        db.session.add(new_card)
+    card = Card.query.filter_by(pucatrade_id=data["pucatrade_id"]).first()
+    if not card:
+        card = Card()
+        card.pucatrade_id = data["pucatrade_id"]
+        card.name = data["name"]
+        db.session.add(card)
         db.session.commit()
+    price = Price()
+    price.card_id = card.id
+    price.normal = data["normal_price"]
+    price.foil = data["foil_price"]
+    db.session.add(price)
+    db.session.commit()
     return jsonify({ "success": True })
 
 #
