@@ -27,6 +27,6 @@ def scrape():
         r2 = requests.post("http://pucaprice.herokuapp.com/scraper/add", json=card)
 
         print(card)
-        print(r2.status)
+        print(r2.status_code)
 
 sched.start()
