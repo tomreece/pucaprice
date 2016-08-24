@@ -45,7 +45,7 @@ def scraper_add():
     if not card:
         card = Card()
         card.pucatrade_id = data["pucatrade_id"]
-        card.name = data["name"]
+        card.name = data["card_name"]
         db.session.add(card)
         db.session.commit()
     price = Price()

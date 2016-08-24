@@ -26,7 +26,7 @@ def scrape():
             foil_price = None
 
         card = {
-            "name": card_name,
+            "card_name": card_name,
             "pucatrade_id": pucatrade_id,
             "normal_price": normal_price,
             "foil_price": foil_price
