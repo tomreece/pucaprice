@@ -34,7 +34,7 @@ class Price(db.Model):
 # Routes
 #
 
-@app.route("/hello")
+@app.route("/")
 def hello():
     return "hello, i am alive"
 

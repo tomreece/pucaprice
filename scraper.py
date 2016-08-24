@@ -3,12 +3,11 @@ import requests
 from bs4 import BeautifulSoup
 from apscheduler.schedulers.blocking import BlockingScheduler
 
-#RANGE = 32047
-RANGE = 10
+RANGE = 32047
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job("interval", minutes=1)
+@sched.scheduled_job("interval", hours=12)
 def scrape():
     for pucatrade_id in range(1, RANGE + 1):
         r = requests.get("https://pucatrade.com/cards/show/{}".format(pucatrade_id))
