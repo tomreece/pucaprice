@@ -18,6 +18,10 @@ def scrape():
         prices = soup.find_all("div", class_="price small")
         normal_price = prices[0].text
         foil_price = prices[1].text
+
+        if normal_price = "N/A":
+            normal_price = None
+
         if foil_price == "N/A":
             foil_price = None
 
