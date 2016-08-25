@@ -77,7 +77,7 @@ def search(query):
 #
 
 def card_to_dict(card):
-    price = Price.query.filter_by(card_id=card.id).order_by(Price.id.desc()).first()
+    price = Price.query.filter(Price.card_id == card.id).order_by(Price.id.desc()).first()
     return {
         "name": card.name,
         "set_name": card.set_name,
