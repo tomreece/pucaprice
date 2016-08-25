@@ -66,6 +66,22 @@ def scraper_add():
     db.session.commit()
     return jsonify({ "success": True })
 
+@app.route("/search/<string:query>")
+def search(query):
+    cards = Card.query.filter(Card.name.contains(query)).all()
+    return jsonify({ "results": [card_to_dict(card) for card in cards] })
+
+#
+# Helpers
+#
+
+def card_to_dict(card, prices=None):
+    return {
+        "name": card.name,
+        "set_name": card.set_name,
+        "url": "https://pucatrade.com/cards/show/{}".format(card.pucatrade_id)
+    }
+
 #
 # Main
 #
