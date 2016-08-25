@@ -64,21 +64,21 @@ def scraper_add():
     price.foil_wants = data["foil_wants"]
     db.session.add(price)
     db.session.commit()
-    return jsonify({ "success": True })
+    return jsonify({ "status": 200 })
 
 @app.route("/search/<string:query>")
 def search(query):
-    if len(query) <= 3:
-        return error_response("Please enter more 3 or more characters.")
+    if len(query) < 3:
+        return error_response(400, "Please enter 3 or more characters.")
     cards = Card.query.filter(Card.name.ilike("%{}%".format(query))).all()
-    return jsonify({ "success": True, "results": [card_to_dict(card) for card in cards] })
+    return jsonify({ "status": 200, "results": [card_to_dict(card) for card in cards] })
 
 #
 # Helpers
 #
 
-def error_response(reason):
-    return jsonify({ "success": False, "reason": reason })
+def error_response(status, reason):
+    return jsonify({ "status": status, "reason": reason })
 
 def card_to_dict(card):
     price = Price.query.filter_by(card_id=card.id).order_by(Price.id.desc()).first()
