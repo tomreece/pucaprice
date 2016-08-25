@@ -39,7 +39,7 @@ for pucatrade_id in range(1, RANGE + 1):
             "foil_wants": foil_wants
         }
 
-        #r2 = requests.post("http://pucaprice.herokuapp.com/scraper/add", json=card)
+        r2 = requests.post("http://pucaprice.herokuapp.com/scraper/add", json=card)
 
         print(card)
     except Exception:
