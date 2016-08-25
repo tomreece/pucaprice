@@ -68,13 +68,17 @@ def scraper_add():
 
 @app.route("/search/<string:query>")
 def search(query):
-    # todo: only search if query > n characters
+    if len(query) <= 3:
+        return error_response("Please enter more 3 or more characters.")
     cards = Card.query.filter(Card.name.ilike("%{}%".format(query))).all()
-    return jsonify({ "results": [card_to_dict(card) for card in cards] })
+    return jsonify({ "success": True, "results": [card_to_dict(card) for card in cards] })
 
 #
 # Helpers
 #
+
+def error_response(reason):
+    return jsonify({ "success": False, "reason": reason })
 
 def card_to_dict(card):
     price = Price.query.filter_by(card_id=card.id).order_by(Price.id.desc()).first()
