@@ -68,8 +68,8 @@ def scraper_add():
 
 @app.route("/search/<string:query>")
 def search(query):
-    # todo: make case insensitive
-    cards = Card.query.filter(Card.name.contains(query)).all()
+    # todo: only search if query > n characters
+    cards = Card.query.filter(Card.name.ilike("%{}%".format(query))).all()
     return jsonify({ "results": [card_to_dict(card) for card in cards] })
 
 #
