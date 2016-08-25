@@ -68,6 +68,7 @@ def scraper_add():
 
 @app.route("/search/<string:query>")
 def search(query):
+    # todo: make case insensitive
     cards = Card.query.filter(Card.name.contains(query)).all()
     return jsonify({ "results": [card_to_dict(card) for card in cards] })
 
@@ -75,11 +76,24 @@ def search(query):
 # Helpers
 #
 
-def card_to_dict(card, prices=None):
+def card_to_dict(card):
+    price = Price.query.filter_by(card_id=card.id).order_by(Price.id.desc()).first()
     return {
         "name": card.name,
         "set_name": card.set_name,
-        "url": "https://pucatrade.com/cards/show/{}".format(card.pucatrade_id)
+        "url": "https://pucatrade.com/cards/show/{}".format(card.pucatrade_id),
+        "prices": {
+            "normal": price.normal,
+            "foil": price.foil
+        },
+        "haves": {
+            "normal": price.normal_haves,
+            "foil": price.foil_haves
+        },
+        "wants": {
+            "normal": price.normal_wants,
+            "foil": price.foil_wants
+        }
     }
 
 #
