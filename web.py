@@ -78,7 +78,9 @@ def search(query):
 #
 
 def error_response(status, reason):
-    return jsonify({ "status": status, "reason": reason })
+    resp = jsonify({ "status": status, "reason": reason })
+    resp.status_code = status
+    return resp
 
 def card_to_dict(card):
     price = Price.query.filter_by(card_id=card.id).order_by(Price.id.desc()).first()
