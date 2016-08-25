@@ -11,15 +11,14 @@ for pucatrade_id in range(1, RANGE + 1):
 
         card_name = soup.find("h1", class_="title").text
         set_name = soup.find("div", class_="type").find("a").find("span").text
-        prices = soup.find_all("div", class_="price small")
         # PucaTrade has uses the class "have" for both have and want counts
         have_wants = soup.find_all("div", class_="have")
-        normal_price = prices[0].text.replace(",", "")
-        normal_haves = have_wants[0].text.replace(" HAVES", "")
-        normal_wants = have_wants[1].text.replace(" WANTS", "")
-        foil_price = prices[1].text.replace(",", "")
-        foil_haves = have_wants[2].text.replace(" HAVES", "")
-        foil_wants = have_wants[3].text.replace(" WANTS", "")
+        normal_price = soup.find("div", class_="price").find("label", class_="on").text.replace(",", "")
+        normal_haves = int(have_wants[0].text.replace(" HAVES", ""))
+        normal_wants = int(have_wants[1].text.replace(" WANTS", ""))
+        foil_price = soup.find("div", class_="price").find("label", class_="off").text.replace(",", "")
+        foil_haves = int(have_wants[2].text.replace(" HAVES", ""))
+        foil_wants = int(have_wants[3].text.replace(" WANTS", ""))
 
         if normal_price == "N/A":
             normal_price = None
@@ -27,6 +26,19 @@ for pucatrade_id in range(1, RANGE + 1):
         if foil_price == "N/A":
             foil_price = None
 
+        if normal_haves < 0:
+            normal_haves = 0
+
+        if normal_wants < 0:
+            normal_wants = 0
+
+        if foil_haves < 0:
+            foil_haves = 0
+
+        if foil_wants < 0:
+            foil_haves = 0
+
+        # todo: normal_price and foil_price should be made int() earlier
         card = {
             "card_name": card_name,
             "set_name": set_name,
