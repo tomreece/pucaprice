@@ -117,7 +117,7 @@ def card_to_dict(card):
     price = Price.query.filter_by(card_id=card.id).order_by(Price.id.desc()).first()
 
     d = {
-        "id": card.id
+        "id": card.id,
         "name": card.name,
         "set_name": card.set_name,
         "url": "https://pucatrade.com/cards/show/{}".format(card.pucatrade_id)
