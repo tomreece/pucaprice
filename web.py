@@ -74,7 +74,7 @@ def scraper_add():
 
 @app.route("/card/<int:id>")
 def card_id(id):
-    return render_template("test.html", id=id)
+    return render_template("card.html", id=id)
 
 #
 # API
