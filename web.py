@@ -97,7 +97,7 @@ def api_v1_card(id):
             "set_name": card.set_name,
             "url": "https://pucatrade.com/cards/show/{}".format(card.pucatrade_id)
         },
-        "dates": [price.created for price in prices]
+        "dates": [price.created for price in prices],
         "prices": [{ "normal": price.normal, "foil": price.foil } for price in prices],
         "haves": [{ "normal": price.normal_haves, "foil": price.foil_haves } for price in prices],
         "wants": [{ "normal": price.normal_wants, "foil": price.foil_wants } for price in prices]
