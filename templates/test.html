@@ -28,8 +28,6 @@
         var ctx = $(".price-chart");
         var ctx2 = $(".haves-wants-chart");
         $.get("http://pucaprice.herokuapp.com/api/v1/card/{{ id }}", function(data) {
-        // $.get("http://pucaprice.herokuapp.com/api/v1/card/20864", function(data) {
-            debugger;
             var card = data.card;
             var dates = data.dates;
             var normalPrices = data.normal_prices;
