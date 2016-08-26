@@ -90,7 +90,7 @@ def api_v1_search(query):
 @app.route("/api/v1/card/<int:id>")
 def api_v1_card(id):
     card = Card.query.get(id)
-    prices = Price.query.filter_by(card_id=card.id).order_by(price.id).all()
+    prices = Price.query.filter_by(card_id=card.id).order_by(Price.id).all()
     return jsonify({
         "card": {
             "name": card.name,
