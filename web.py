@@ -1,11 +1,13 @@
 import datetime
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+CORS(app)
 db = SQLAlchemy(app)
 
 #
@@ -65,6 +67,14 @@ def scraper_add():
     db.session.add(price)
     db.session.commit()
     return jsonify({ "success": True })
+
+#
+# Templates
+#
+
+@app.route("/card/<int:id>")
+def card_id(id):
+    return render_template("test.html")
 
 #
 # API

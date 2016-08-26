@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+    <title>pucaprice</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <style>
+        #chart-container {
+            width: 900px;
+            height: 900px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart-container">
+        <canvas id="price-chart"></canvas>
+    </div>
+    <script>
+        var ctx = $("#price-chart");
+        $.get("http://pucaprice.herokuapp.com/api/v1/search/jace,%20vryn", function(data) {
+            alert(data);
+        });
+        var priceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["2015-08-25", "2015-08-26", "2015-08-27", "2015-08-28"],
+                datasets: [
+                    {
+                        label: "Normal",
+                        fill: false,
+                        lineTension: 0,
+                        borderColor: "#2980b9",
+                        backgroundColor: "#2980b9",
+                        pointBorderColor: "#2980b9",
+                        pointBackgroundColor: "#2980b9",
+                        pointHoverBackgroundColor: "#2980b9",
+                        pointHoverBorderColor: "#2980b9",
+                        pointRadius: 3,
+                        pointHoverRadius: 3,
+                        pointHitRadius: 10,
+                        data: [10, 0, 0, 0],
+                        spanGaps: false
+                    },
+                    {
+                        label: "Foil",
+                        fill: false,
+                        lineTension: 0,
+                        borderColor: "#f39c12",
+                        backgroundColor: "#f39c12",
+                        pointBorderColor: "#f39c12",
+                        pointBackgroundColor: "#f39c12",
+                        pointHoverBackgroundColor: "#f39c12",
+                        pointHoverBorderColor: "#f39c12",
+                        pointRadius: 3,
+                        pointHoverRadius: 3,
+                        pointHitRadius: 10,
+                        data: [70, 0, 0, 0],
+                        spanGaps: false
+                    }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Price',
+                    fontSize: 18
+                },
+                legend: {
+                    display: true,
+                    labels: {
+                        boxWidth: 15
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
