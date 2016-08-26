@@ -74,7 +74,7 @@ def scraper_add():
 
 @app.route("/card/<int:id>")
 def card_id(id):
-    return render_template("test.html")
+    return render_template("test.html", id=id)
 
 #
 # API
@@ -97,6 +97,7 @@ def api_v1_card(id):
             "set_name": card.set_name,
             "url": "https://pucatrade.com/cards/show/{}".format(card.pucatrade_id)
         },
+        "dates": [price.created for price in prices]
         "prices": [{ "normal": price.normal, "foil": price.foil } for price in prices],
         "haves": [{ "normal": price.normal_haves, "foil": price.foil_haves } for price in prices],
         "wants": [{ "normal": price.normal_wants, "foil": price.foil_wants } for price in prices]
@@ -116,6 +117,7 @@ def card_to_dict(card):
     price = Price.query.filter_by(card_id=card.id).order_by(Price.id.desc()).first()
 
     d = {
+        "id": card.id
         "name": card.name,
         "set_name": card.set_name,
         "url": "https://pucatrade.com/cards/show/{}".format(card.pucatrade_id)
