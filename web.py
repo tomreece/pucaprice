@@ -42,8 +42,8 @@ class Price(db.Model):
 #
 
 @app.route("/")
-def hello():
-    return "hello, i am alive"
+def index():
+    return render_template("index.html")
 
 @app.route("/scraper/add", methods=["POST"])
 def scraper_add():
@@ -84,7 +84,7 @@ def card_id(id):
 def api_v1_search(query):
     if len(query) < 3:
         return error_response(400, "Please enter 3 or more characters.")
-    cards = Card.query.filter(Card.name.ilike("%{}%".format(query))).all()
+    cards = Card.query.filter(Card.name.ilike("%{}%".format(query))).order_by(Card.name).all()
     return jsonify({ "results": [card_to_dict(card) for card in cards] })
 
 @app.route("/api/v1/card/<int:id>")
