@@ -5,30 +5,47 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <style>
-        #chart-container {
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        .chart-container {
             width: 900px;
-            height: 900px;
             margin-right: auto;
             margin-left: auto;
         }
     </style>
 </head>
 <body>
-    <div id="chart-container">
+    <div class="chart-container">
         <h2 class="card_name"></h2>
         <h3 class="set_name"></h3>
         <canvas class="price-chart"></canvas>
     </div>
+    <div class="chart-container">
+        <canvas class="haves-wants-chart"></canvas>
+    </div>
     <script>
         var ctx = $(".price-chart");
-        $.get("http://pucaprice.herokuapp.com/api/v1/card/20919", function(data) {
+        var ctx2 = $(".haves-wants-chart");
+        $.get("http://pucaprice.herokuapp.com/api/v1/card/{{ id }}", function(data) {
+        // $.get("http://pucaprice.herokuapp.com/api/v1/card/20864", function(data) {
             debugger;
-            $(".card_name").html(data.results[0].name);
-            $(".set_name").html(data.results[0].set_name);
+            var card = data.card;
+            var dates = data.dates;
+            var normalPrices = data.normal_prices;
+            var normalHaves = data.normal_haves;
+            var normalWants = data.normal_wants;
+            var foilPrices = data.foil_prices;
+            var foilHaves = data.foil_haves;
+            var foilWants = data.foil_wants;
+
+            $(".card_name").html(card.name);
+            $(".set_name").html(card.set_name);
+
             var priceChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ["2015-08-25", "2015-08-26", "2015-08-27", "2015-08-28"],
+                    labels: dates,
                     datasets: [
                         {
                             label: "Normal",
@@ -43,23 +60,23 @@
                             pointRadius: 3,
                             pointHoverRadius: 3,
                             pointHitRadius: 10,
-                            data: [data.results[0].prices.normal, 0, 0, 0],
+                            data: normalPrices,
                             spanGaps: false
                         },
                         {
                             label: "Foil",
                             fill: false,
                             lineTension: 0,
-                            borderColor: "#f39c12",
-                            backgroundColor: "#f39c12",
-                            pointBorderColor: "#f39c12",
-                            pointBackgroundColor: "#f39c12",
-                            pointHoverBackgroundColor: "#f39c12",
-                            pointHoverBorderColor: "#f39c12",
+                            borderColor: "#c0392b",
+                            backgroundColor: "#c0392b",
+                            pointBorderColor: "#c0392b",
+                            pointBackgroundColor: "#c0392b",
+                            pointHoverBackgroundColor: "#c0392b",
+                            pointHoverBorderColor: "#c0392b",
                             pointRadius: 3,
                             pointHoverRadius: 3,
                             pointHitRadius: 10,
-                            data: [data.results[0].prices.foil, 0, 0, 0],
+                            data: foilPrices,
                             spanGaps: false
                         }
                     ]
@@ -68,6 +85,92 @@
                     title: {
                         display: true,
                         text: 'Price',
+                        fontSize: 18
+                    },
+                    legend: {
+                        display: true,
+                        labels: {
+                            boxWidth: 15
+                        }
+                    }
+                }
+            });
+
+            var havesWantsChart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: dates,
+                    datasets: [
+                        {
+                            label: "Normal Haves",
+                            fill: false,
+                            lineTension: 0,
+                            borderColor: "#2980b9",
+                            backgroundColor: "#2980b9",
+                            pointBorderColor: "#2980b9",
+                            pointBackgroundColor: "#2980b9",
+                            pointHoverBackgroundColor: "#2980b9",
+                            pointHoverBorderColor: "#2980b9",
+                            pointRadius: 3,
+                            pointHoverRadius: 3,
+                            pointHitRadius: 10,
+                            data: normalHaves,
+                            spanGaps: false
+                        },
+                        {
+                            label: "Normal Wants",
+                            fill: false,
+                            lineTension: 0,
+                            borderColor: "#3498db",
+                            backgroundColor: "#3498db",
+                            pointBorderColor: "#3498db",
+                            pointBackgroundColor: "#3498db",
+                            pointHoverBackgroundColor: "#3498db",
+                            pointHoverBorderColor: "#3498db",
+                            pointRadius: 3,
+                            pointHoverRadius: 3,
+                            pointHitRadius: 10,
+                            data: normalWants,
+                            spanGaps: false
+                        },
+                        {
+                            label: "Foil Haves",
+                            fill: false,
+                            lineTension: 0,
+                            borderColor: "#c0392b",
+                            backgroundColor: "#c0392b",
+                            pointBorderColor: "#c0392b",
+                            pointBackgroundColor: "#c0392b",
+                            pointHoverBackgroundColor: "#c0392b",
+                            pointHoverBorderColor: "#c0392b",
+                            pointRadius: 3,
+                            pointHoverRadius: 3,
+                            pointHitRadius: 10,
+                            data: foilHaves,
+                            spanGaps: false
+                        },
+                        {
+                            label: "Foil Wants",
+                            fill: false,
+                            lineTension: 0,
+                            borderColor: "#e74c3c",
+                            backgroundColor: "#e74c3c",
+                            pointBorderColor: "#e74c3c",
+                            pointBackgroundColor: "#e74c3c",
+                            pointHoverBackgroundColor: "#e74c3c",
+                            pointHoverBorderColor: "#e74c3c",
+                            pointRadius: 3,
+                            pointHoverRadius: 3,
+                            pointHitRadius: 10,
+                            data: foilWants,
+                            spanGaps: false
+                        }
+                    ]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Haves & Wants',
                         fontSize: 18
                     },
                     legend: {
