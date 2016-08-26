@@ -66,7 +66,11 @@ def scraper_add():
     db.session.commit()
     return jsonify({ "success": True })
 
-@app.route("/search/<string:query>")
+#
+# API
+#
+
+@app.route("/api/v1/search/<string:query>")
 def search(query):
     if len(query) < 3:
         return error_response(400, "Please enter 3 or more characters.")
