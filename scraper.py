@@ -30,16 +30,16 @@ for pucatrade_id in range(1, RANGE + 1):
         if foil_price == "N/A":
             foil_price = None
 
-        if normal_haves and normal_haves < 0:
+        if normal_haves and int(normal_haves) < 0:
             normal_haves = 0
 
-        if normal_wants and normal_wants < 0:
+        if normal_wants and int(normal_wants) < 0:
             normal_wants = 0
 
-        if foil_haves and foil_haves < 0:
+        if foil_haves and int(foil_haves) < 0:
             foil_haves = 0
 
-        if foil_wants and foil_wants < 0:
+        if foil_wants and int(foil_wants) < 0:
             foil_wants = 0
 
         # todo: normal_price and foil_price should be made int() earlier
