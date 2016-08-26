@@ -81,11 +81,27 @@ def card_id(id):
 #
 
 @app.route("/api/v1/search/<string:query>")
-def search(query):
+def api_v1_search(query):
     if len(query) < 3:
         return error_response(400, "Please enter 3 or more characters.")
     cards = Card.query.filter(Card.name.ilike("%{}%".format(query))).all()
     return jsonify({ "results": [card_to_dict(card) for card in cards] })
+
+@app.route("/api/v1/card/<int:id>")
+def api_v1_card(id):
+    card = Card.query.get(id)
+    prices = Price.query.filter_by(card_id=card.id).order_by(price.id).all()
+    return jsonify({
+        "card": {
+            "name": card.name,
+            "set_name": card.set_name,
+            "url": "https://pucatrade.com/cards/show/{}".format(card.pucatrade_id)
+        },
+        "prices": [{ "normal": price.normal, "foil": price.foil } for price in prices],
+        "haves": [{ "normal": price.normal_haves, "foil": price.foil_haves } for price in prices],
+        "wants": [{ "normal": price.normal_wants, "foil": price.foil_wants } for price in prices]
+    })
+
 
 #
 # Helpers
