@@ -2,7 +2,7 @@ from __future__ import print_function
 import requests
 from bs4 import BeautifulSoup
 
-RANGE = 32047
+RANGE = 32671
 
 for pucatrade_id in range(1, RANGE + 1):
     try:
