@@ -21,12 +21,12 @@
         <h3 class="set_name"></h3>
         <canvas class="price-chart"></canvas>
     </div>
-    <div class="chart-container">
+    <!--div class="chart-container">
         <canvas class="haves-wants-chart"></canvas>
-    </div>
+    </div-->
     <script>
         var ctx = $(".price-chart");
-        var ctx2 = $(".haves-wants-chart");
+        // var ctx2 = $(".haves-wants-chart");
         $.get("http://pucaprice.herokuapp.com/api/v1/card/{{ id }}", function(data) {
             var card = data.card;
             var dates = data.dates;
@@ -101,98 +101,98 @@
                 }
             });
 
-            var havesWantsChart = new Chart(ctx2, {
-                type: 'line',
-                data: {
-                    labels: dates,
-                    datasets: [
-                        {
-                            label: "Normal Haves",
-                            fill: false,
-                            lineTension: 0,
-                            borderColor: "#2980b9",
-                            backgroundColor: "#2980b9",
-                            pointBorderColor: "#2980b9",
-                            pointBackgroundColor: "#2980b9",
-                            pointHoverBackgroundColor: "#2980b9",
-                            pointHoverBorderColor: "#2980b9",
-                            pointRadius: 3,
-                            pointHoverRadius: 3,
-                            pointHitRadius: 10,
-                            data: normalHaves,
-                            spanGaps: false
-                        },
-                        {
-                            label: "Normal Wants",
-                            fill: false,
-                            lineTension: 0,
-                            borderColor: "#2ecc71",
-                            backgroundColor: "#2ecc71",
-                            pointBorderColor: "#2ecc71",
-                            pointBackgroundColor: "#2ecc71",
-                            pointHoverBackgroundColor: "#2ecc71",
-                            pointHoverBorderColor: "#2ecc71",
-                            pointRadius: 3,
-                            pointHoverRadius: 3,
-                            pointHitRadius: 10,
-                            data: normalWants,
-                            spanGaps: false
-                        },
-                        {
-                            label: "Foil Haves",
-                            fill: false,
-                            lineTension: 0,
-                            borderColor: "#9b59b6",
-                            backgroundColor: "#9b59b6",
-                            pointBorderColor: "#9b59b6",
-                            pointBackgroundColor: "#9b59b6",
-                            pointHoverBackgroundColor: "#9b59b6",
-                            pointHoverBorderColor: "#9b59b6",
-                            pointRadius: 3,
-                            pointHoverRadius: 3,
-                            pointHitRadius: 10,
-                            data: foilHaves,
-                            spanGaps: false
-                        },
-                        {
-                            label: "Foil Wants",
-                            fill: false,
-                            lineTension: 0,
-                            borderColor: "#e74c3c",
-                            backgroundColor: "#e74c3c",
-                            pointBorderColor: "#e74c3c",
-                            pointBackgroundColor: "#e74c3c",
-                            pointHoverBackgroundColor: "#e74c3c",
-                            pointHoverBorderColor: "#e74c3c",
-                            pointRadius: 3,
-                            pointHoverRadius: 3,
-                            pointHitRadius: 10,
-                            data: foilWants,
-                            spanGaps: false
-                        }
-                    ]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: 'Haves & Wants',
-                        fontSize: 18
-                    },
-                    legend: {
-                        display: true,
-                        labels: {
-                            boxWidth: 15
-                        }
-                    },
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-                }
-            });
+            // var havesWantsChart = new Chart(ctx2, {
+            //     type: 'line',
+            //     data: {
+            //         labels: dates,
+            //         datasets: [
+            //             {
+            //                 label: "Normal Haves",
+            //                 fill: false,
+            //                 lineTension: 0,
+            //                 borderColor: "#2980b9",
+            //                 backgroundColor: "#2980b9",
+            //                 pointBorderColor: "#2980b9",
+            //                 pointBackgroundColor: "#2980b9",
+            //                 pointHoverBackgroundColor: "#2980b9",
+            //                 pointHoverBorderColor: "#2980b9",
+            //                 pointRadius: 3,
+            //                 pointHoverRadius: 3,
+            //                 pointHitRadius: 10,
+            //                 data: normalHaves,
+            //                 spanGaps: false
+            //             },
+            //             {
+            //                 label: "Normal Wants",
+            //                 fill: false,
+            //                 lineTension: 0,
+            //                 borderColor: "#2ecc71",
+            //                 backgroundColor: "#2ecc71",
+            //                 pointBorderColor: "#2ecc71",
+            //                 pointBackgroundColor: "#2ecc71",
+            //                 pointHoverBackgroundColor: "#2ecc71",
+            //                 pointHoverBorderColor: "#2ecc71",
+            //                 pointRadius: 3,
+            //                 pointHoverRadius: 3,
+            //                 pointHitRadius: 10,
+            //                 data: normalWants,
+            //                 spanGaps: false
+            //             },
+            //             {
+            //                 label: "Foil Haves",
+            //                 fill: false,
+            //                 lineTension: 0,
+            //                 borderColor: "#9b59b6",
+            //                 backgroundColor: "#9b59b6",
+            //                 pointBorderColor: "#9b59b6",
+            //                 pointBackgroundColor: "#9b59b6",
+            //                 pointHoverBackgroundColor: "#9b59b6",
+            //                 pointHoverBorderColor: "#9b59b6",
+            //                 pointRadius: 3,
+            //                 pointHoverRadius: 3,
+            //                 pointHitRadius: 10,
+            //                 data: foilHaves,
+            //                 spanGaps: false
+            //             },
+            //             {
+            //                 label: "Foil Wants",
+            //                 fill: false,
+            //                 lineTension: 0,
+            //                 borderColor: "#e74c3c",
+            //                 backgroundColor: "#e74c3c",
+            //                 pointBorderColor: "#e74c3c",
+            //                 pointBackgroundColor: "#e74c3c",
+            //                 pointHoverBackgroundColor: "#e74c3c",
+            //                 pointHoverBorderColor: "#e74c3c",
+            //                 pointRadius: 3,
+            //                 pointHoverRadius: 3,
+            //                 pointHitRadius: 10,
+            //                 data: foilWants,
+            //                 spanGaps: false
+            //             }
+            //         ]
+            //     },
+            //     options: {
+            //         title: {
+            //             display: true,
+            //             text: 'Haves & Wants',
+            //             fontSize: 18
+            //         },
+            //         legend: {
+            //             display: true,
+            //             labels: {
+            //                 boxWidth: 15
+            //             }
+            //         },
+            //         scales: {
+            //             yAxes: [{
+            //                 ticks: {
+            //                     beginAtZero:true
+            //                 }
+            //             }]
+            //         }
+            //     }
+            // });
         });
     </script>
 </body>
