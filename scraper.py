@@ -3,7 +3,7 @@ import requests
 import traceback
 from bs4 import BeautifulSoup
 
-RANGE = 32671
+RANGE = 33832
 
 for pucatrade_id in range(1, RANGE + 1):
     try:
